@@ -8,22 +8,22 @@ import org.springframework.web.context.request.RequestContextHolder;
 @Component
 public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentifierResolver {
 
-	private static final String DEFAULT_TENANT_ID = "tenant_1";
+    private static final String DEFAULT_TENANT_ID = "DEFAULT";
 
-	@Override
-	public String resolveCurrentTenantIdentifier() {
-		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-		if (requestAttributes != null) {
-			String identifier = (String) requestAttributes.getAttribute("CURRENT_TENANT_IDENTIFIER",RequestAttributes.SCOPE_REQUEST);
-			if (identifier != null) {
-				return identifier;
-			}
-		}
-		return DEFAULT_TENANT_ID;
-	}
+    @Override
+    public String resolveCurrentTenantIdentifier() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            String identifier = (String) requestAttributes.getAttribute("CURRENT_TENANT_IDENTIFIER", RequestAttributes.SCOPE_REQUEST);
+            if (identifier != null) {
+                return identifier;
+            }
+        }
+        return DEFAULT_TENANT_ID;
+    }
 
-	@Override
-	public boolean validateExistingCurrentSessions() {
-		return true;
-	}
+    @Override
+    public boolean validateExistingCurrentSessions() {
+        return true;
+    }
 }
