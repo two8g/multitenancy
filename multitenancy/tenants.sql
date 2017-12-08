@@ -1,3 +1,5 @@
+CREATE SCHEMA 'tenants';
+USE tenants;
 CREATE TABLE `tenant` (
   id       BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name     VARCHAR(15),
