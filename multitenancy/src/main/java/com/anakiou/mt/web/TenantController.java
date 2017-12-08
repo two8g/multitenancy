@@ -20,6 +20,7 @@ public class TenantController {
 
     @RequestMapping
     public String tenants(Model model) {
+        model.addAttribute("tenant", new Tenant());
         model.addAttribute("tenants", tenantRepository.findAll());
         return "tenants";
     }
