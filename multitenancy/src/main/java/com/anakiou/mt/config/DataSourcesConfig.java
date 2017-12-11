@@ -1,6 +1,7 @@
 package com.anakiou.mt.config;
 
 import com.anakiou.mt.MultiTenantConstants;
+import com.anakiou.mt.domain.Employee;
 import com.anakiou.mt.multitenant.DataSourceBasedMultiTenantConnectionProviderImpl;
 import com.anakiou.mt.multitenant.TenantIdentifierResolver;
 import org.hibernate.MultiTenancyStrategy;
@@ -12,9 +13,7 @@ import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
@@ -59,22 +58,10 @@ public class DataSourcesConfig {
         props.put("hibernate.multi_tenant_connection_provider", dsProvider);
         props.put("hibernate.tenant_identifier_resolver", tenantResolver);
 
-        LocalContainerEntityManagerFactoryBean result = builder.dataSource(dataSource())
+        return builder.dataSource(dataSource())
                 .persistenceUnit(MultiTenantConstants.TENANT_KEY)
                 .properties(props)
-                .packages("com.anakiou.mt.domain").build();
-        result.setJpaVendorAdapter(jpaVendorAdapter());
-        return result;
-    }
-
-    @Bean
-    public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-        hibernateJpaVendorAdapter.setShowSql(true);
-        // Generate DDL is not supported in Hibernate to multi-tenancy features
-        // https://hibernate.atlassian.net/browse/HHH-7395
-        hibernateJpaVendorAdapter.setGenerateDdl(false);
-        return hibernateJpaVendorAdapter;
+                .packages(Employee.class.getPackage().getName()).build();
     }
 
 }

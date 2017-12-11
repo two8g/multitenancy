@@ -1,7 +1,6 @@
 package com.anakiou.mt.web;
 
 import com.anakiou.mt.domain.Tenant;
-import com.anakiou.mt.multitenant.DataSourceBasedMultiTenantConnectionProviderImpl;
 import com.anakiou.mt.multitenant.TenantDataSource;
 import com.anakiou.mt.repository.TenantDataSourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
 @Controller
 @RequestMapping("/tenants")
 public class TenantController {
@@ -22,8 +18,6 @@ public class TenantController {
     private TenantDataSourceRepository tenantDataSourceRepository;
     @Autowired
     private TenantDataSource tenantDataSource;
-    @Resource
-    private DataSourceBasedMultiTenantConnectionProviderImpl dataSourceBasedMultiTenantConnectionProvider;
 
     @RequestMapping
     public String tenants(Model model) {
@@ -37,8 +31,7 @@ public class TenantController {
     public String addTenant(@ModelAttribute Tenant tenant) {
         tenant.setUrl("jdbc:h2:mem:" + tenant.getName());
         tenantDataSourceRepository.save(tenant);
-        DataSource dataSource = tenantDataSource.getDataSource(tenant.getName());
-        dataSourceBasedMultiTenantConnectionProvider.add(tenant.getName(), dataSource);
+        tenantDataSource.addDataSource(tenant);
         return "redirect:/";
     }
 }
