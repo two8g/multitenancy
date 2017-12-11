@@ -9,7 +9,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ApplicationStartedEventListener implements ApplicationListener<ContextRefreshedEvent> {
+public class ApplicationRefreshedEventListener implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private TenantDataSourceRepository tenantDataSourceRepository;
     @Autowired
