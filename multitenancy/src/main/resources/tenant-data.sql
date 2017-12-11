@@ -1,1 +1,1 @@
-INSERT INTO EMPLOYEE VALUES (1,'Jack','Green','No.1','A101');
+INSERT INTO employee VALUES (1,'Jack','Green','No.1','A101');

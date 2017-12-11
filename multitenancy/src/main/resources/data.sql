@@ -1,1 +1,1 @@
-INSERT INTO TENANT VALUES (1, 'test', 'jdbc:h2:mem:test', 'sa', '')
+INSERT INTO tenant VALUES (1, 'test', 'jdbc:h2:mem:test', 'sa', '');

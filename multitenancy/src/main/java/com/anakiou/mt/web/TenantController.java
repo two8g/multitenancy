@@ -35,8 +35,8 @@ public class TenantController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Transactional
     public String addTenant(@ModelAttribute Tenant tenant) {
-        tenantDataSourceRepository.save(tenant);
         tenant.setUrl("jdbc:h2:mem:" + tenant.getName());
+        tenantDataSourceRepository.save(tenant);
         DataSource dataSource = tenantDataSource.getDataSource(tenant.getName());
         dataSourceBasedMultiTenantConnectionProvider.add(tenant.getName(), dataSource);
         return "redirect:/";
