@@ -57,7 +57,7 @@ public class TenantDataSource implements Serializable {
     }
 
     private void initialize(DataSource dataSource) {
-        ClassPathResource schemaResource = new ClassPathResource("schema-tenant.sql");
+        ClassPathResource schemaResource = new ClassPathResource("tenant-schema.sql");
         //ClassPathResource dataResource = new ClassPathResource("data.sql");
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator(schemaResource);
         populator.execute(dataSource);
