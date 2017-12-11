@@ -29,6 +29,6 @@ public class TenantController {
     public String addTenant(@ModelAttribute Tenant tenant, Model model) {
         tenantRepository.save(tenant);
         tenantDataSourceProvider.addDataSource(tenant);
-        return "redirect:/tenants";
+        return "redirect:/";
     }
 }
