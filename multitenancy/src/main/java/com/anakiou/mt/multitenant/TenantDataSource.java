@@ -11,11 +11,14 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class TenantDataSource implements Serializable {
 
+    private Set<String> tenants = new HashSet<>();
     private HashMap<String, DataSource> dataSources = new HashMap<>();
 
     @Autowired
@@ -27,6 +30,7 @@ public class TenantDataSource implements Serializable {
         }
         DataSource dataSource = createDataSource(name);
         if (dataSource != null) {
+            tenants.add(name);
             dataSources.put(name, dataSource);
         }
         return dataSource;
@@ -58,10 +62,13 @@ public class TenantDataSource implements Serializable {
 
     private void initialize(DataSource dataSource) {
         ClassPathResource schemaResource = new ClassPathResource("tenant-schema.sql");
-        //ClassPathResource dataResource = new ClassPathResource("data.sql");
-        ResourceDatabasePopulator populator = new ResourceDatabasePopulator(schemaResource);
+        ClassPathResource dataResource = new ClassPathResource("tenant-data.sql");
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator(schemaResource, dataResource);
         populator.execute(dataSource);
     }
 
+    public boolean exist(String name) {
+        return tenants.contains(name);
+    }
 
 }

@@ -37,8 +37,8 @@ public class TenantController {
     public String addTenant(@ModelAttribute Tenant tenant) {
         tenantDataSourceRepository.save(tenant);
         tenant.setUrl("jdbc:h2:mem:" + tenant.getName());
-        DataSource dataSource = tenantDataSource.createDataSource(tenant.getName());
+        DataSource dataSource = tenantDataSource.getDataSource(tenant.getName());
         dataSourceBasedMultiTenantConnectionProvider.add(tenant.getName(), dataSource);
-        return "redirect:/tenants";
+        return "redirect:/";
     }
 }
