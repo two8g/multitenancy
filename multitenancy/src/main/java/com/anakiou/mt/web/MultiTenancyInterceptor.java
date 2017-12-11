@@ -1,12 +1,14 @@
 package com.anakiou.mt.web;
 
-import java.util.Map;
+import com.anakiou.mt.MultiTenantConstants;
+import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
-import org.springframework.web.servlet.HandlerMapping;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import static com.anakiou.mt.MultiTenantConstants.TENANT_KEY;
 
 public class MultiTenancyInterceptor extends HandlerInterceptorAdapter {
 
@@ -15,8 +17,8 @@ public class MultiTenancyInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		Map<String, Object> pathVars = (Map<String, Object>) req.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		
-		if (pathVars.containsKey("tenantid")) {
-			req.setAttribute("CURRENT_TENANT_IDENTIFIER", pathVars.get("tenantid"));
+		if (pathVars.containsKey(TENANT_KEY)) {
+			req.setAttribute(MultiTenantConstants.CURRENT_TENANT_IDENTIFIER, pathVars.get(TENANT_KEY));
 		}
 		return true;
 	}

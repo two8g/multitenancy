@@ -1,0 +1,1 @@
+INSERT INTO TENANT VALUES (1, 'tenant_0', 'jdbc:h2:mem:tenant_0', 'sa', '')
