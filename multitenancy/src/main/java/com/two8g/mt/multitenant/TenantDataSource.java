@@ -1,7 +1,7 @@
 package com.two8g.mt.multitenant;
 
-import com.two8g.mt.domain.Tenant;
 import com.two8g.mt.MultiTenantConstants;
+import com.two8g.mt.domain.Tenant;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -39,8 +39,7 @@ public class TenantDataSource implements Serializable {
 
     public void addDataSource(Tenant tenant) {
         if (tenant != null) {
-            DataSourceBuilder factory = DataSourceBuilder
-                    .create().driverClassName("org.h2.Driver")
+            DataSourceBuilder factory = DataSourceBuilder.create()
                     .username(tenant.getUsername())
                     .password(tenant.getPassword())
                     .url(tenant.getUrl());
