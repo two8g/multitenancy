@@ -2,7 +2,7 @@
 
 ## three modes
 
-* Dicriminator-Column: there is a tenant-Column in every table
+* Discriminator-Column: there is a tenant-Column in every table
 
 * Schema-Separation: all tenants use the same database, but tenant has their own schema
 
