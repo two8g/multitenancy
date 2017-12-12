@@ -37,12 +37,12 @@ public class TenantDataSourceProvider {
 
     // 初始化的时候用于添加数据源的方法
     public void addDataSource(Tenant tenant) {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url(tenant.getUrl());
-        dataSourceBuilder.username(tenant.getUsername());
-        dataSourceBuilder.password(tenant.getPassword());
-        dataSourceBuilder.driverClassName("com.mysql.jdbc.Driver");
-        dataSourceMap.put(tenant.getName(), dataSourceBuilder.build());
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create()
+                .url(tenant.getUrl())
+                .username(tenant.getUsername())
+                .password(tenant.getPassword());
+        DataSource dataSource = dataSourceBuilder.build();
+        dataSourceMap.put(tenant.getName(), dataSource);
     }
 
 }

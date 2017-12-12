@@ -1,0 +1,1 @@
+Hibernate schema MultiTenancyStrategy
