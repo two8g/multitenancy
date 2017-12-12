@@ -21,17 +21,11 @@ public class TenantConnectionProviderImpl extends AbstractMultiTenantConnectionP
     @Autowired
     private DataSource dataSource;
     private final DatasourceConnectionProviderImpl connectionProvider = new DatasourceConnectionProviderImpl();
-    //private ConfigurationService configurationService;
 
     @Override
     public void start() {
         connectionProvider.configure(Collections.singletonMap(Environment.DATASOURCE, dataSource));
     }
-
-    //@InjectService
-    //public void setConfigurationProvider(ConfigurationService configurationService) {
-    //    this.configurationService = configurationService;
-    //}
 
     @Override
     protected ConnectionProvider getAnyConnectionProvider() {
@@ -54,9 +48,4 @@ public class TenantConnectionProviderImpl extends AbstractMultiTenantConnectionP
         return connection;
     }
 
-    @Override
-    public void releaseConnection(String tenantIdentifier, Connection connection) throws SQLException {
-        connection.createStatement().execute("SET search_path to public");
-        connection.close();
-    }
 }
