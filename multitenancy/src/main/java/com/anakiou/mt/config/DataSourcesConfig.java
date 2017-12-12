@@ -5,6 +5,7 @@ import com.anakiou.mt.domain.Employee;
 import com.anakiou.mt.multitenant.DataSourceBasedMultiTenantConnectionProviderImpl;
 import com.anakiou.mt.multitenant.TenantIdentifierResolver;
 import org.hibernate.MultiTenancyStrategy;
+import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -50,9 +51,9 @@ public class DataSourcesConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
         Map<String, Object> props = new HashMap<>();
-        props.put("hibernate.multiTenancy", MultiTenancyStrategy.DATABASE.name());
-        props.put("hibernate.multi_tenant_connection_provider", dsProvider);
-        props.put("hibernate.tenant_identifier_resolver", tenantResolver);
+        props.put(Environment.MULTI_TENANT, MultiTenancyStrategy.DATABASE);
+        props.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, dsProvider);
+        props.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, tenantResolver);
 
         return builder.dataSource(dataSource())
                 .persistenceUnit(MultiTenantConstants.TENANT_KEY)
