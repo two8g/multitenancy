@@ -6,7 +6,6 @@ import com.anakiou.mt.multitenant.DataSourceBasedMultiTenantConnectionProviderIm
 import com.anakiou.mt.multitenant.TenantIdentifierResolver;
 import org.hibernate.MultiTenancyStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -27,9 +26,6 @@ public class DataSourcesConfig {
 
     @Autowired
     TenantIdentifierResolver tenantResolver;
-
-    @Autowired
-    AutowireCapableBeanFactory beanFactory;
 
     /**
      * Creates the default "master" datasource
